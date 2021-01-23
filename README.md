@@ -5,3 +5,4 @@ Contents of this repository so far:
 ## Part 1: Data Structures
 ### 1.1: Linked Lists
 * Tutorial Q1-4
+* Lab Q1-4
