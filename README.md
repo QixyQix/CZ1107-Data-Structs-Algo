@@ -6,3 +6,5 @@ Contents of this repository so far:
 ### 1.1: Linked Lists
 * Tutorial Q1-4
 * Lab Q1-4
+### 1.2: Stacks & Queues
+* Tutorial Q1-3
