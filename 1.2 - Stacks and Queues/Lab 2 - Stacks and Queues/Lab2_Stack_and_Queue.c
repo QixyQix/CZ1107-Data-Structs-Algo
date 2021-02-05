@@ -208,7 +208,7 @@ int balanced(char *expression){
 		if(currChar == '(' || currChar == '[' || currChar =='{'){
 			push(s,currChar);
 		}else{
-			//Check if the top item in the stack matches the closing char
+			//Closing bracket, check if the top of the stack is its equivalent opening bracket
 			if(currChar == ')' && peek(s) != '(') return -1;
 			if(currChar == '}' && peek(s) != '{') return -1;
 			if(currChar == ']' && peek(s) != '[') return -1;
