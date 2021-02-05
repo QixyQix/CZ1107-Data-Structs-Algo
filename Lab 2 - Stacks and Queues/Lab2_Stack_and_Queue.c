@@ -2,6 +2,7 @@
 
 #include "stdio.h"
 #include <stdlib.h>
+#include <ctype.h>
 
 //////////////////////////////////   linked list //////////////////////////////////////////////
 
@@ -151,7 +152,37 @@ void recursiveReverse(Queue *q){
 int palindrome(char *word){
 
 	// write your code here
-	
+	char *chrPtr = word;
+
+	Stack wordStack;
+	wordStack.ll.head = NULL;
+	wordStack.ll.size = 0;
+
+	Queue wordQueue;
+	wordQueue.ll.head = NULL;
+	wordQueue.ll.size = 0;
+
+	Stack *s = &wordStack;
+	Queue *q = &wordQueue;
+
+	while(*chrPtr != '\0'){
+		//Ignore case, hence we will uppercase everything for comparison, and only care about alnum chars
+		char c = toupper(*chrPtr);
+		if(isalnum(c)){
+			push(s,c);
+			enqueue(q,c);
+		}
+		chrPtr++;
+	}
+
+	while(!isEmptyStack(s)){
+		if(pop(s) != dequeue(q)){
+			puts("The string is not a palindrome.");
+			return -1;
+		}
+	}
+	puts("The string is a palindrome.");
+	return 0;
 }
 
 
@@ -162,7 +193,32 @@ int palindrome(char *word){
 int balanced(char *expression){
 
 	// write your code here
+	char *chrPtr = expression;
+	int wordCount;
 
+	Stack wordStack;
+	wordStack.ll.head = NULL;
+	wordStack.ll.size = 0;
+
+	Stack *s = &wordStack;
+
+	while(*chrPtr != '\0'){
+		char currChar = *chrPtr;
+		//Always push openings
+		if(currChar == '(' || currChar == '[' || currChar =='{'){
+			push(s,currChar);
+		}else{
+			//Check if the top item in the stack matches the closing char
+			if(currChar == ')' && peek(s) != '(') return -1;
+			if(currChar == '}' && peek(s) != '{') return -1;
+			if(currChar == ']' && peek(s) != '[') return -1;
+
+			//Passes the checks, pop the item as we no longer need it
+			pop(s);
+		}
+		chrPtr ++;
+	}
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
