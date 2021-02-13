@@ -87,7 +87,8 @@ void moveEvenItemsToBack(LinkedList *ll)
 	ListNode *currNode = ll->head;
 
 	int i;
-	for (i = 0; i < ll->size; i++)
+	int loopsNeeded = ll->size;
+	for (i = 0; i < loopsNeeded; i++)
 	{
 		//Current Node value is by 2
 		if ((currNode->item % 2) == 0)

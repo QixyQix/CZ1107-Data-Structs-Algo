@@ -92,8 +92,8 @@ void moveOddItemsToBack(LinkedList *ll)
 		ListNode *prevNode = NULL;
 
 		int i;
-
-		for (i = 0; i < ll->size; i++)
+		int loopsNeeded = ll->size;
+		for (i = 0; i < loopsNeeded; i++)
 		{
 			if ((currNode->item) % 2 == 1)
 			{
