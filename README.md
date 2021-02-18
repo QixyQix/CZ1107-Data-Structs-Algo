@@ -12,3 +12,4 @@ Contents of this repository so far:
 * Lab Q1-4
 ### 1.3: Binary Trees
 * Tutorial Q1-4
+* Lab Q1-4
