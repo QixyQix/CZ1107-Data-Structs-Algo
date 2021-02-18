@@ -10,3 +10,5 @@ Contents of this repository so far:
 ### 1.2: Stacks & Queues
 * Tutorial Q1-3
 * Lab Q1-4
+### 1.3: Binary Trees
+* Tutorial Q1-4
