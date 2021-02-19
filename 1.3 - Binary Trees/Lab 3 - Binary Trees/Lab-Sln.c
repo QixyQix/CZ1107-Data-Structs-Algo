@@ -163,7 +163,10 @@ int smallestValue(BTNode *node) {
 	if(node->right != NULL)
 		r =  smallestValue(node->right);
 
-	if(l > r)
+	//Check: If current node item is the smallest among the rest, return current node
+	if(node->item < l && node->item < r)
+		return node->item;
+	else if(l > r)
 		return r;
 	else
 		return l;
