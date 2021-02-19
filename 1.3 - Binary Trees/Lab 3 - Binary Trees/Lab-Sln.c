@@ -5,8 +5,8 @@
 
 ////////////////////////////////////////////////////////////////////
 
-
-typedef struct _btnode{
+typedef struct _btnode
+{
 	int item;
 	struct _btnode *left;
 	struct _btnode *right;
@@ -14,7 +14,6 @@ typedef struct _btnode{
 } BTNode;
 
 ////////////////////////////////////////////////////////////////////
-
 
 void mirrorTree(BTNode *node);
 
@@ -26,7 +25,8 @@ void printTree_InOrder(BTNode *node);
 
 ////////////////////////////////////////////////////////////////////
 
-int main(int argc, const char * argv[]){
+int main(int argc, const char *argv[])
+{
 
 	int i;
 	BTNode *root, *root2;
@@ -85,13 +85,15 @@ int main(int argc, const char * argv[]){
 	//question 4
 	// Create a tree for Q4: Tall enough so some nodes have great-grandchildren
 	// Use array of BTNodes, create tree by linking nodes together
-	for (i = 0; i <= 6; i++){
+	for (i = 0; i <= 6; i++)
+	{
 		btn[i].item = i;
 		btn[i].left = &(btn[i * 2 + 1]);
 		btn[i].right = &(btn[i * 2 + 2]);
 	}
 
-	for (i = 7; i <= 14; i++){
+	for (i = 7; i <= 14; i++)
+	{
 		btn[i].item = i;
 		btn[i].left = NULL;
 		btn[i].right = NULL;
@@ -108,12 +110,14 @@ int main(int argc, const char * argv[]){
 }
 
 /////////////////////// QUESTION 1 ///////////////////////
-void mirrorTree(BTNode *node){
+void mirrorTree(BTNode *node)
+{
 
 	// write your code here
 	//Recursive Function
 	//Base Case: Node is null, reach the end of the tree
-	if(node == NULL){
+	if (node == NULL)
+	{
 		return;
 	}
 	//Iterative Step:
@@ -125,68 +129,75 @@ void mirrorTree(BTNode *node){
 	//Mirror the childs next
 	mirrorTree(node->left);
 	mirrorTree(node->right);
-
 }
 
 /////////////////////// QUESTION 2 ///////////////////////
-void printSmallerValues(BTNode *node, int m){
+void printSmallerValues(BTNode *node, int m)
+{
 
 	// write your code here
 	//Recursive Function
 	//Base case: current node item is smaller than m
-	if(node == NULL){
+	if (node == NULL)
+	{
 		return;
 	}
-	if(node->item < m){
-		printf("%d ",node->item);
+	if (node->item < m)
+	{
+		printf("%d ", node->item);
 	}
 
 	//Iterative Step:
 	//Print Smaller Values of child nodes
-	printSmallerValues(node->left,m);
-	printSmallerValues(node->right,m);
+	printSmallerValues(node->left, m);
+	printSmallerValues(node->right, m);
 }
 
 /////////////////////// QUESTION 3 ///////////////////////
-int smallestValue(BTNode *node) {
+int smallestValue(BTNode *node)
+{
 	int l, r;
 
 	// write your code here
 	// Recursive Function
 	// Base case: node is end of branch, left and right should be null
-	if(node->left == NULL && node->right == NULL){
+	if (node->left == NULL && node->right == NULL)
+	{
 		return node->item;
 	}
 
-	if(node->left != NULL)
+	if (node->left != NULL)
 		l = smallestValue(node->left);
-	if(node->right != NULL)
-		r =  smallestValue(node->right);
+	if (node->right != NULL)
+		r = smallestValue(node->right);
 
 	//Check: If current node item is the smallest among the rest, return current node
-	if(node->item < l && node->item < r)
+	if (node->item < l && node->item < r)
 		return node->item;
-	else if(l > r)
+	else if (l > r)
 		return r;
 	else
 		return l;
-
 }
 
 /////////////////////// QUESTION 4 ///////////////////////
-int hasGreatGrandchild(BTNode *node){
-
+int hasGreatGrandchildOLD(BTNode *node)
+{
+	//*****IGNORE THIS -- IT COMPUTERS GRANDCHILD ONLY*****
 	// write your code here
 	// Base Case: End node
-	if(node == NULL)
+	if (node == NULL)
 		return;
 	//Common property: At least one left/right child's childs not NULL
-	if(node->left != NULL){
-		if(node->left->left != NULL || node->left->right != NULL)
-			printf("%d ",node->item);
-	}else if(node->right != NULL){
-		if(node->right->left != NULL || node->right->right != NULL)
-			printf("%d ",node->item);
+	if (node->left != NULL)
+	{
+		if (node->left->left != NULL || node->left->right != NULL)
+			printf("%d ", node->item);
+	}
+	else if (node->right != NULL)
+	{
+		if (node->right->left != NULL || node->right->right != NULL)
+			printf("%d ", node->item);
 	}
 
 	//Recursively call next node
@@ -194,12 +205,36 @@ int hasGreatGrandchild(BTNode *node){
 	hasGreatGrandchild(node->right);
 }
 
+int hasGreatGrandchild(BTNode *node)
+{
+	//Recursive function: Compute the height of each path
+	//Base Case: end of branch
+	if (node == NULL)
+		return 0;
+
+	int leftRes;
+	int rightRes;
+	//Iterative Step: compute height of child nodes, and add 1
+	leftRes = 1 + hasGreatGrandchild(node->left);
+	rightRes = 1 + hasGreatGrandchild(node->right);
+
+	//Override leftRes if rightRes is higher
+	if(rightRes > leftRes)
+		leftRes = rightRes;
+	//Print if the largest height is at least 3
+	if (leftRes >= 3)
+		printf("%d ", node->item);
+
+	return rightRes;
+}
 
 //////////////////////////////////////////////////////////////////
 
-void printTree_InOrder(BTNode *node){
+void printTree_InOrder(BTNode *node)
+{
 
-	if (node == NULL) return;
+	if (node == NULL)
+		return;
 	printTree_InOrder(node->left);
 	printf("%d, ", node->item);
 	printTree_InOrder(node->right);
