@@ -14,3 +14,5 @@ Contents of this repository so far:
 * Tutorial Q1-4
 * Lab Q1-4
 * Assignment Q1-4
+### 1.4: Binary Search Trees
+* Tutorial-Lab Q1-4
